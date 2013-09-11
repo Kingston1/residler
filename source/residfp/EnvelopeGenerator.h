@@ -22,6 +22,7 @@
 
 #ifndef ENVELOPEGENERATOR_H
 #define ENVELOPEGENERATOR_H
+#undef RELEASE //solves a conflicting define from VST SDK
 
 #include "siddefs-fp.h"
 

@@ -83,7 +83,7 @@ void residlerController::populateParameters()
 //-----------------------------------------------------------------------------
 IndexedParameter* residlerController::populateIndexParameter(const TChar * title, const vector<string>* list, ParamID pid)
 {
-	int32 count = list->size();
+	int32 count = (int32)list->size();
 	IndexedParameter* indexParam = new IndexedParameter (title, 0, count-1, 0, ParameterInfo::kCanAutomate | ParameterInfo::kIsList, pid);
 
 	for (int i = 0; i<count; ++i) {
