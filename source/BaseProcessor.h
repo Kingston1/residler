@@ -18,10 +18,8 @@ protected:
 
 	virtual void doProcessing (ProcessData& data) = 0;
 	virtual bool bypassProcessing (ProcessData& data);
-	virtual void processEvents (IEventList* /*events*/) {}
 	virtual void checkSilence (ProcessData& data);
 	virtual void setBypass (bool state, int32 sampleOffset);
-	virtual bool processParameterChanges (IParameterChanges* changes);
 	virtual void setParameter (ParamID index, ParamValue newValue, int32 sampleOffset);
 	virtual void allocParameters (int32 numParams);
 	virtual void recalculate () {}

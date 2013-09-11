@@ -13,6 +13,7 @@ residlerProcessor::residlerProcessor ()
 {
 	setControllerClass (residlerController::uid);
 	allocParameters (residlerParameterFormat::knumParameters);
+	resid = NULL;
 }
 
 //-----------------------------------------------------------------------------
@@ -51,75 +52,14 @@ tresult PLUGIN_API residlerProcessor::terminate ()
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API residlerProcessor::setActive (TBool state)
 {
-	if (state)
-		recalculate ();
-
 	return BaseProcessor::setActive (state);
-}
-
-//-----------------------------------------------------------------------------
-void residlerProcessor::setParameter (ParamID index, ParamValue newValue, int32 sampleOffset)
-{
-	//todo: sampleOffset of parameters is ignored currently. no sample accurate automation!
-	//see processEvents() below
-	//parameter que is needed to handle these events in doProcessing() with any kind of sample accuracy
-	//sampleOffset==timestamp
-
-	if (index < residlerParameterFormat::knumParameters)
-		BaseProcessor::setParameter (index, newValue, sampleOffset);
-	
-	
-	//todo: program changes will come from some file based system in the future
-	else if (index == BaseController::kPresetParam) // program change
-	{
-		int32 program = std::min<int32> (residlerParameterFormat::knumPresets-1, (int32)(newValue * residlerParameterFormat::knumPresets));
-		const float* newParams = residlerParameterFormat::programParams[program];
-		if (newParams)
-		{
-			for (int32 i = 0; i < residlerParameterFormat::knumParameters; i++)
-				params[i] = newParams[i];
-		}
-	}
-
-
-	//todo: handle this midi stuff elsewhere
-	else if (index == BaseController::kModWheelParam) // mod wheel
-	{
-		newValue *= 127.;
-		//modwhl = 0.000005f * (newValue*newValue);
-	}
-	else if (index == BaseController::kPitchBendParam) // pitch bend
-	{
-		if (newValue <= 1)
-			newValue = (newValue - 0.5) * 0x2000;
-		//ipbend = (float)exp (0.000014102 * (double)newValue);
-		//pbend = 1.0f / ipbend;
-	}
-	else if (index == BaseController::kBreathParam)
-	{
-		newValue *= 127.;
-		//filtwhl = 0.02f * newValue;
-	}
-	else if (index == BaseController::kCtrler3Param)
-	{
-		newValue *= 127.;
-		//filtwhl = -0.03f * newValue;
-	}
-	else if (index == BaseController::kExpressionParam)
-	{
-		newValue *= 127.;
-		//rezwhl = 0.0065f * (float)(154 - newValue);
-	}
-	else if (index == BaseController::kAftertouchParam)
-	{
-		newValue *= 127.;
-		//press = 0.00001f * (float)(newValue * newValue);
-	}
 }
 
 //-----------------------------------------------------------------------------
 void residlerProcessor::doProcessing (ProcessData& data)
 {
+	event_test(data.inputEvents);
+
 	int32 sampleFrames = data.numSamples;
 	
 	float* out1 = data.outputs[0].channelBuffers32[0];
@@ -128,14 +68,26 @@ void residlerProcessor::doProcessing (ProcessData& data)
 	//see SDK note_expression_synth_processor.cpp process (ProcessData& data)
 	//good ideas on how to use data.inputParameterChanges and IParamValueQueue there
 
-	//default, mark buffer empty
-	memset (out1, 0, sampleFrames * sizeof (float));
-	memset (out2, 0, sampleFrames * sizeof (float));
-	
+	int i;
+	for (i = 0; i < sampleFrames; i++)
+	{
+//		out1[i] = ((float)i / (float)sampleFrames) - 0.5f;
+//		out2[i] = (((float)i / (float)sampleFrames) - 0.5f) * 0.1f;
+		out2[i] = 0.0f;
+	}
+
+	gen(0, sampleFrames, out1);
+
+	for (i = 0; i < sampleFrames; i++)
+	{
+		out2[i] = out1[i];
+	}
+
+
 }
 
 //-----------------------------------------------------------------------------
-void residlerProcessor::processEvents (IEventList* events)
+void residlerProcessor::event_test (IEventList* events)
 {
 	if (events)
 	{
@@ -157,6 +109,7 @@ void residlerProcessor::processEvents (IEventList* events)
 					//e.noteOn.pitch;
 					//e.noteOn.velocity;
 					//e.noteOn.noteId;
+					noteOn(e.noteOn.pitch, e.noteOn.velocity, e.sampleOffset);
 					break;
 				}
 				case Event::kNoteOffEvent:
@@ -165,6 +118,7 @@ void residlerProcessor::processEvents (IEventList* events)
 					//e.noteOn.pitch;
 					//0;
 					//e.noteOn.noteId;
+					noteOff(e.noteOn.pitch,e.sampleOffset);
 					break;
 				}
 				default:
@@ -175,16 +129,115 @@ void residlerProcessor::processEvents (IEventList* events)
 }
 
 //-----------------------------------------------------------------------------
-void residlerProcessor::noteOn (int32 note, int32 velocity, int32 noteID)
+void residlerProcessor::noteOn (int16 note, float velocity, int32 sampleOffset)
 {
-	//might be a good idea to expand this method significantly
+	double scaler = 0x1000000 / sidinfo.clockrate;
+	double freq = 440.f * pow(2.0, (double)((int)note-57)/12.0);
+	int sidfreq = (int)(scaler * freq);
+
+	int sustain = (int)(velocity * 0xF) << 4;
+
+	resid->write(0x00, (sidfreq >> 0) & 0xFF);
+	resid->write(0x01, (sidfreq >> 8) & 0xFF);
+	resid->write(0x02, 0x00);
+	resid->write(0x03, 0x08);
+	resid->write(0x05, 0x94);
+	resid->write(0x06, 0x0A | sustain);
+	
+	resid->write(0x04, 0x21);
 }
 
+void residlerProcessor::noteOff(int16 note, int32 sampleOffset)
+{
+	resid->write(0x04, 0x20);
+}
 //-----------------------------------------------------------------------------
 void residlerProcessor::recalculate ()
 {
 	//set up reSID etc. initialisation
+	resid = new reSIDfp::SID;
+
+	sidinfo.samplerate = 44100.;
+	sidinfo.clockrate = 1000000.f;
+	double passband = 0.9 * (sidinfo.samplerate / 2.0);
+	resid->setChipModel(reSIDfp::MOS6581);
+	resid->setSamplingParameters(sidinfo.clockrate, reSIDfp::RESAMPLE, sidinfo.samplerate, passband);
+
+	resid->write(0x17, 0xF1);
+	resid->write(0x18, 0x1F);
+
+	resid->write(0x16, 0x40);
+
+	residual_buf_fill = 0;
+}
+
+static inline int min(int v1, int v2)
+{
+	return v1 < v2 ? v1 : v2;
+}
+
+#define SAFE_EXTRA_CYCLECOUNT (1000)
+
+int residlerProcessor::estimate_cycles(int frames_left)
+{
+	return (int)((frames_left * sidinfo.clockrate) / sidinfo.samplerate) + SAFE_EXTRA_CYCLECOUNT;
+}
+
+float *residlerProcessor::gen(int maxcycles, int maxframes, float *buf)
+{
+	int i;
+	int fr_cycles;
+
+	if (!resid)
+		return NULL;
+
+
+	if (maxcycles == 0)
+	{
+		maxcycles = estimate_cycles(maxframes);
+	}
+
+	int this_frames = 0;
+
+	if (maxframes <= residual_buf_fill)
+	{
+		this_frames = residual_buf_fill;
+		fr_cycles = 0;
+	}
+	else
+	{
+		this_frames = residual_buf_fill;
+
+		fr_cycles = estimate_cycles(maxframes - this_frames);
+		fr_cycles = min(fr_cycles, maxcycles);
+
+		residual_buf_fill += resid->clock(fr_cycles, &(residual_buf[this_frames]));
+
+		this_frames = min(residual_buf_fill, maxframes);
+	}
+
+	if (this_frames > residual_buf_fill)
+	{
+		//fprintf(stderr, "trying to give %i frames out, but we only have %i\n", this_frames, residual_buf_fill);
+		this_frames = residual_buf_fill;
+	}
+
+	for (i = 0; i < this_frames; i++)
+		buf[i] = (float)residual_buf[i] / 32768.f;
+
+	for (i = 0; i < (residual_buf_fill - this_frames); i++)
+	{
+		residual_buf[i] = residual_buf[this_frames + i];
+	}
+	residual_buf_fill = residual_buf_fill - this_frames;
+
+	if (residual_buf_fill < 0)
+	{
+		//fprintf(stderr, "heh residual buf size meni alle nollan.\n");
+		residual_buf_fill = 0;
+	}
+
+	return NULL;
 }
 
 }}} // namespaces
-

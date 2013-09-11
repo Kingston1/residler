@@ -33,11 +33,6 @@ BaseProcessor::~BaseProcessor ()
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API BaseProcessor::process (ProcessData& data)
 {
-	if (processParameterChanges (data.inputParameterChanges))
-		recalculate ();
-
-	processEvents (data.inputEvents);
-
 	if (data.numSamples > 0 && !bypassProcessing (data))
 	{
 		doProcessing (data);
@@ -173,35 +168,6 @@ void BaseProcessor::checkSilence (ProcessData& data)
 				data.outputs[bus].silenceFlags |= (uint64)1 << channel;
 		}
 	}
-}
-
-//-----------------------------------------------------------------------------
-bool BaseProcessor::processParameterChanges (IParameterChanges* changes)
-{
-	if (changes)
-	{
-		int32 count = changes->getParameterCount ();
-		if (count > 0)
-		{
-			for (int32 i = 0; i < count; i++)
-			{
-				IParamValueQueue* queue = changes->getParameterData (i);
-				if (!queue)
-					continue;
-				ParamID paramId = queue->getParameterId ();
-				int32 pointCount = queue->getPointCount ();
-				int32 sampleOffset;
-				ParamValue value;
-				queue->getPoint (pointCount - 1, sampleOffset, value);
-				if (paramId == BaseController::kBypassParam)
-					setBypass (value >= 0.5, sampleOffset);
-				else
-					setParameter (paramId, value, sampleOffset);
-			}
-			return true;
-		}
-	}
-	return false;
 }
 
 //-----------------------------------------------------------------------------
