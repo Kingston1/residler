@@ -28,6 +28,7 @@ public:
 
 private:
 	void populateParameters();
+	IndexedParameter* populateIndexParameter(const TChar *, const vector<string>*, ParamID);
 
 private:
 	residlerParameterFormat paramFormat;

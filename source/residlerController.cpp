@@ -66,37 +66,35 @@ void residlerController::populateParameters()
 
 	for (pid; pid<residlerParameterFormat::knumParameters; ++pid) {
 
-		const string str = paramFormat.paramName(pid);
+		const string str = paramFormat.paramNameList()->at(pid);
 		const wstring title (str.begin(), str.end());
-			
-		if(pid == residlerParameterFormat::kLFO1Target) {
-			//fill a parameter list of LFO targets
-			IndexedParameter* lfotargetParam = new IndexedParameter (title.c_str(), 0, residlerParameterFormat::knumLFOTargets-1, 0, ParameterInfo::kCanAutomate | ParameterInfo::kIsList, pid);
-			for (int lfotarget = 0; lfotarget<residlerParameterFormat::knumLFOTargets; ++lfotarget) {
 
-				const string lfostr = paramFormat.LFOTargetName(lfotarget);
-				const wstring lfotitle (lfostr.begin(), lfostr.end());
-
-				lfotargetParam->setIndexString (lfotarget, lfotitle.c_str());
-			}
-			parameters.addParameter (lfotargetParam);
-		}
-		else if(pid == residlerParameterFormat::kGlide) {
-			//fill list of glide/mono/poly types
-			IndexedParameter* glideParam = new IndexedParameter (title.c_str(), 0, residlerParameterFormat::knumGlideTypes-1, 0, ParameterInfo::kCanAutomate | ParameterInfo::kIsList, pid);
-			for (int glide = 0; glide<residlerParameterFormat::knumGlideTypes; ++glide) {
-
-				const string glidestr = paramFormat.glideName(glide);
-				const wstring glidetitle (glidestr.begin(), glidestr.end());
-
-				glideParam->setIndexString (glide, glidetitle.c_str());
-			}
-			parameters.addParameter (glideParam);
-		}
-		else { //fill all common parameters
-			parameters.addParameter (title.c_str(), USTRING(""), 0, 0.5, ParameterInfo::kCanAutomate, pid);
+		switch (pid) {
+			case residlerParameterFormat::kOsc1Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
+			case residlerParameterFormat::kOsc2Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
+			case residlerParameterFormat::kOsc3Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
+			case residlerParameterFormat::kLFO1Target : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.LFOTargetNameList(), pid ) ); break;
+			case residlerParameterFormat::kGlideType : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.glideNameList(), pid ) ); break;
+				default :  parameters.addParameter (title.c_str(), USTRING(""), 0, 0, ParameterInfo::kCanAutomate, pid);
 		}
 	}
+}
+
+//-----------------------------------------------------------------------------
+IndexedParameter* residlerController::populateIndexParameter(const TChar * title, const vector<string>* list, ParamID pid)
+{
+	int32 count = list->size();
+	IndexedParameter* indexParam = new IndexedParameter (title, 0, count-1, 0, ParameterInfo::kCanAutomate | ParameterInfo::kIsList, pid);
+
+	for (int i = 0; i<count; ++i) {
+
+		const string tempstr = list->at(i);
+		const wstring temptitle (tempstr.begin(), tempstr.end());
+
+		indexParam->setIndexString (i, temptitle.c_str());
+		}
+
+	return indexParam;
 }
 
 //-----------------------------------------------------------------------------

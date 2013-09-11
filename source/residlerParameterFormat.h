@@ -15,69 +15,84 @@ class residlerParameterFormat
 {
 public:
 	enum paramIds {
-		//float (double) parameter types
 		kMasterVolume = 0,
 		kMasterTune,
+		//osc1
 		kOsc1Tune,
-		kOsc2Tune,
-		kOsc3Tune,
-		kOsc1Noise,
-		kOsc1Pulse,
-		kOsc1Triangle,
-		kOsc1Saw,
-		//kOsc1TEST,
+		kOsc1Waveform,//<----------list type
+		kOsc1PW,
 		kOsc1RingMod,
 		kOsc1Sync,
-		kOsc2Noise,
-		kOsc2Pulse,
-		kOsc2Triangle,
-		kOsc2Saw,
-		//kOsc2TEST,
-		kOsc2RingMod,
-		kOsc2Sync,
-		kOsc3Noise,
-		kOsc3Pulse,
-		kOsc3Triangle,
-		kOsc3Saw,
-		//kOsc3TEST,
-		kOsc3RingMod,
-		kOsc3Sync,
-		kOsc1PW,
-		kOsc2PW,
-		kOsc3PW,
+		kOsc1Filter,
+		//env1
 		kEnv1Att,
 		kEnv1Dec,
 		kEnv1Sus,
 		kEnv1Rel,
+		//osc2
+		kOsc2Tune,
+		kOsc2Waveform,//<----------list type
+		kOsc2PW,
+		kOsc2RingMod,
+		kOsc2Sync,
+		kOsc2Filter,
+		//env2
 		kEnv2Att,
 		kEnv2Dec,
 		kEnv2Sus,
 		kEnv2Rel,
+		//osc3
+		kOsc3Tune,
+		kOsc3Waveform,//<----------list type
+		kOsc3PW,
+		kOsc3RingMod,
+		kOsc3Sync,
+		kOsc3Filter,
+		//env3
 		kEnv3Att,
 		kEnv3Dec,
 		kEnv3Sus,
 		kEnv3Rel,
+		//filter
 		kFilterCutOff,
 		kFilterRes,
-		kFilterOff,
 		kFilterHP,
 		kFilterBP,
 		kFilterLP,
-		kOsc1Filter,
-		kOsc2Filter,
-		kOsc3Filter,
+		//lfo1
 		kLFO1Type,
 		kLFO1Rate,
 		kLFO1Depth,
+		kLFO1Target, //<----------list type
+		//misc
 		kGlideRate,
 		kGlideBend,
+		kGlideType,
 
-		//list parameter types
-		kGlide,
-		kLFO1Target,
-
-		//end of parameter list
+		//end of list
 		knumParameters
+	};
+
+	enum waveformTypes {
+		kOscNoise = 0,
+		kOscPulse,
+		kOscTri,
+		kOscSaw,
+		kOscNoisePulse,
+		kOscNoisePulseTri,
+		kOscNoisePulseTriSaw,
+		kOscNoisePulseSaw,
+		kOscNoiseTri,
+		kOscNoiseTriSaw,
+		kOscNoiseSaw,
+		kOscPulseTri,
+		kOscPulseSaw,
+		kOscPulseTriSaw,
+		kOscTriSaw,
+		kOscTriPulse,
+
+		//end of list
+		knumOscTypes
 	};
 
 	enum LFOTargets {
@@ -103,7 +118,7 @@ public:
 		kLFOFilterCutoff,
 		kLFOFilterRes,
 
-		//end of LFOTargets list
+		//end of list
 		knumLFOTargets
 	};
 
@@ -115,7 +130,7 @@ public:
 		kMonoLegato,
 		kMonoGlide,
 
-		//end of GlideTypes list
+		//end of list
 		knumGlideTypes
 	};
 
@@ -130,15 +145,17 @@ public:
 
 //-----------------------------------------------------------------------------
 public:
-	const string paramName(int) const;
-	const string LFOTargetName(int) const;
-	const string glideName(int) const;
+	const vector<string>* paramNameList() const		{ return &paramList; }
+	const vector<string>* LFOTargetNameList() const	{ return &LFOTargetList; }
+	const vector<string>* glideNameList() const		{ return &glideList; }
+	const vector<string>* waveformNameList() const	{ return &waveformList; }
 
 //-----------------------------------------------------------------------------
 private:
 	vector<string> paramList;
 	vector<string> LFOTargetList;
 	vector<string> glideList;
+	vector<string> waveformList;
 };
 
 }}} // namespaces
