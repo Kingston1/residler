@@ -29,6 +29,12 @@
     <Filter Include="Source Files\resources">
       <UniqueIdentifier>{ef3f6655-4b78-4a1c-a112-efd533a559be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\residfp">
+      <UniqueIdentifier>{5e0b50ff-a848-45ca-9939-8ede7dacdfd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\residfp\resamplers">
+      <UniqueIdentifier>{e9ec9764-6645-4ab8-b5b5-600a5815749e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\pluginterfaces\vst\ivstattributes.h">
@@ -127,6 +133,72 @@
     <ClInclude Include="..\source\helpers.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\residfp\array.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Dac.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\EnvelopeGenerator.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\ExternalFilter.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Filter.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Filter6581.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Filter8580.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\FilterModelConfig.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Integrator.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\OpAmp.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Potentiometer.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\residfp-config.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\SID.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\siddefs-fp.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Spline.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\WaveformCalculator.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\WaveformGenerator.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\Voice.h">
+      <Filter>Source Files\residfp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\resample\Resampler.h">
+      <Filter>Source Files\residfp\resamplers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\resample\SincResampler.h">
+      <Filter>Source Files\residfp\resamplers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\resample\TwoPassSincResampler.h">
+      <Filter>Source Files\residfp\resamplers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\residfp\resample\ZeroOrderResampler.h">
+      <Filter>Source Files\residfp\resamplers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\residlerVST2Wrapper.cpp">
@@ -194,6 +266,45 @@
     </ClCompile>
     <ClCompile Include="..\..\pluginterfaces\base\ustring.cpp">
       <Filter>Source Files\pluginterfaces\base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\Dac.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\EnvelopeGenerator.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\ExternalFilter.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\Filter.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\Filter6581.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\FilterModelConfig.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\OpAmp.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\SID.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\Spline.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\WaveformCalculator.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\WaveformGenerator.cpp">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\version.cc">
+      <Filter>Source Files\residfp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\residfp\resample\SincResampler.cpp">
+      <Filter>Source Files\residfp\resamplers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
