@@ -9,114 +9,127 @@ residlerParameterFormat::residlerParameterFormat ()
 {
 	string errorname = "ERRORTYPE";
 	for (int i=0; i<knumParameters; ++i) paramList.push_back(errorname);
-	for (int i=0; i<knumLFOTargets; ++i) LFOTargetList.push_back(errorname);
+	for (int i=0; i<knumRoutingSources; ++i) routingSourceList.push_back(errorname);
+	for (int i=0; i<knumRoutingDestinations; ++i) routingDestinationList.push_back(errorname);
 	for (int i=0; i<knumGlideTypes; ++i) glideList.push_back(errorname);
-	for (int i=0; i<knumOscTypes; ++i) waveformList.push_back(errorname);
+	for (int i=0; i<knumWaveformTypes; ++i) waveformList.push_back(errorname);
+	for (int i=0; i<kOnOffType; ++i) onOffList.push_back(errorname);
 	
 	for (int i=0; i<knumParameters; ++i) {
 		switch (i) {
-			case kMasterVolume :		paramList[i] = "MasterVolume";		break;
-			case kMasterTune :			paramList[i] = "MasterTune";		break;
-			//osc1
-			case kOsc1Tune :			paramList[i] = "Osc1Tune";			break;
-			case kOsc1Waveform :		paramList[i] = "Osc1Waveform";		break;
-			case kOsc1PW :				paramList[i] = "Osc1PW";			break;
-			case kOsc1RingMod :			paramList[i] = "Osc1RingMod";		break;
-			case kOsc1Sync :			paramList[i] = "Osc1Sync";			break;
-			case kOsc1Filter :			paramList[i] = "Osc1Filter";		break;
-			//env1
-			case kEnv1Att :				paramList[i] = "Env1Att";			break;
-			case kEnv1Dec :				paramList[i] = "Env1Dec";			break;
-			case kEnv1Sus :				paramList[i] = "Env1Sus";			break;
-			case kEnv1Rel :				paramList[i] = "Env1Rel";			break;
-			//osc2
-			case kOsc2Tune :			paramList[i] = "Osc2Tune";			break;
-			case kOsc2Waveform :		paramList[i] = "Osc2Waveform";		break;
-			case kOsc2PW :				paramList[i] = "Osc2PW";			break;
-			case kOsc2RingMod :			paramList[i] = "Osc2RingMod";		break;
-			case kOsc2Sync :			paramList[i] = "Osc2Sync";			break;
-			case kOsc2Filter :			paramList[i] = "Osc2Filter";		break;
-			//env2
-			case kEnv2Att :				paramList[i] = "Env2Att";			break;
-			case kEnv2Dec :				paramList[i] = "Env2Dec";			break;
-			case kEnv2Sus :				paramList[i] = "Env2Sus";			break;
-			case kEnv2Rel :				paramList[i] = "Env2Rel";			break;
-			//osc3
-			case kOsc3Tune :			paramList[i] = "Osc3Tune";			break;
-			case kOsc3Waveform :		paramList[i] = "Osc3Waveform";		break;
-			case kOsc3PW :				paramList[i] = "Osc3PW";			break;
-			case kOsc3RingMod :			paramList[i] = "Osc3RingMod";		break;
-			case kOsc3Sync :			paramList[i] = "Osc3Sync";			break;
-			case kOsc3Filter :			paramList[i] = "Osc3Filter";		break;
-			//env3
-			case kEnv3Att :				paramList[i] = "Env3Att";			break;
-			case kEnv3Dec :				paramList[i] = "Env3Dec";			break;
-			case kEnv3Sus :				paramList[i] = "Env3Sus";			break;
-			case kEnv3Rel :				paramList[i] = "Env3Rel";			break;
-			//filter
-			case kFilterCutOff :		paramList[i] = "FilterCutOff";		break;
-			case kFilterRes :			paramList[i] = "FilterRes";			break;
-			case kFilterHP :			paramList[i] = "kFilterHP";			break;
-			case kFilterBP :			paramList[i] = "kFilterBP";			break;
-			case kFilterLP :			paramList[i] = "kFilterLP";			break;
-			//lfo1
-			case kLFO1Type :			paramList[i] = "LFO1Type";			break;
-			case kLFO1Rate :			paramList[i] = "LFO1Rate";			break;
-			case kLFO1Depth :			paramList[i] = "LFO1Depth";			break;
-			case kLFO1Target :			paramList[i] = "LFO1Target";		break;
-			//misc
-			case kGlideRate :			paramList[i] = "GlideRate";			break;
-			case kGlideBend :			paramList[i] = "GlideBend";			break;
-			case kGlideType :			paramList[i] = "Glide";				break;
-		}	
-	}
+			case kMasterVolume :		paramList[i] = "MasterVolume";			break;
+			case kMasterTune :			paramList[i] = "MasterTune";			break;
+			case kMaxPolyphony :		paramList[i] = "MaxPolyphony";			break;
 
-	for (int i=0; i<knumOscTypes; ++i) {
-		switch (i) {
-			case kOscNoise :			waveformList[i] = "OscNoise";			break;
-			case kOscPulse :			waveformList[i] = "OscPulse";			break;
-			case kOscTri :				waveformList[i] = "OscTri";				break;
-			case kOscSaw :				waveformList[i] = "OscSaw";				break;
-			case kOscNoisePulse :		waveformList[i] = "OscNoisePulse";		break;
-			case kOscNoisePulseTri :	waveformList[i] = "OscNoisePulseTri";	break;
-			case kOscNoisePulseTriSaw :	waveformList[i] = "OscNoisePulseTriSaw";break;
-			case kOscNoisePulseSaw :	waveformList[i] = "OscNoisePulseSaw";	break;
-			case kOscNoiseTri :			waveformList[i] = "OscNoiseTri";		break;
-			case kOscNoiseTriSaw :		waveformList[i] = "OscNoiseTriSaw";		break;
-			case kOscNoiseSaw :			waveformList[i] = "OscNoiseSaw";		break;
-			case kOscPulseTri :			waveformList[i] = "OscPulseTri";		break;
-			case kOscPulseSaw :			waveformList[i] = "OscPulseSaw";		break;
-			case kOscPulseTriSaw :		waveformList[i] = "OscPulseTriSaw";		break;
-			case kOscTriSaw :			waveformList[i] = "OscTriSaw";			break;
-			case kOscTriPulse :			waveformList[i] = "OscTriPulse";		break;
-		}
-	}
+			case kVoice0On :			paramList[i] = "Voice0On";				break;
+			case kVoice0Tune :			paramList[i] = "Voice0Tune";			break;
+			case kVoice0PW :			paramList[i] = "Voice0PW";				break;
+			case kVoice0Waveform :		paramList[i] = "Voice0Waveform";		break;
+			case kVoice0RingMod :		paramList[i] = "Voice0RingMod";			break;
+			case kVoice0Sync :			paramList[i] = "Voice0Sync";			break;
+			case kVoice0FilterOn :		paramList[i] = "Voice0FilterOn";		break;
+			case kVoice0EnvAttack :		paramList[i] = "Voice0EnvAttack";		break;
+			case kVoice0EnvDecay :		paramList[i] = "Voice0EnvDecay";		break;
+			case kVoice0EnvSustain :	paramList[i] = "Voice0EnvSustain";		break;
+			case kVoice0EnvRelease :	paramList[i] = "Voice0EnvRelease";		break;
 
-	for (int i=0; i<knumLFOTargets; ++i) {
+			case kVoice1On :			paramList[i] = "Voice1On";				break;
+			case kVoice1Tune :			paramList[i] = "Voice1Tune";			break;
+			case kVoice1PW :			paramList[i] = "Voice1PW";				break;
+			case kVoice1Waveform :		paramList[i] = "Voice1Waveform";		break;
+			case kVoice1RingMod :		paramList[i] = "Voice1RingMod";			break;
+			case kVoice1Sync :			paramList[i] = "Voice1Sync";			break;
+			case kVoice1FilterOn :		paramList[i] = "Voice1FilterOn";		break;
+			case kVoice1EnvAttack :		paramList[i] = "Voice1EnvAttack";		break;
+			case kVoice1EnvDecay :		paramList[i] = "Voice1EnvDecay";		break;
+			case kVoice1EnvSustain :	paramList[i] = "Voice1EnvSustain";		break;
+			case kVoice1EnvRelease :	paramList[i] = "Voice1EnvRelease";		break;
+
+			case kVoice2On :			paramList[i] = "Voice2On";				break;
+			case kVoice2Tune :			paramList[i] = "Voice2Tune";			break;
+			case kVoice2PW :			paramList[i] = "Voice2PW";				break;
+			case kVoice2Waveform :		paramList[i] = "Voice2Waveform";		break;
+			case kVoice2RingMod :		paramList[i] = "Voice2RingMod";			break;
+			case kVoice2Sync :			paramList[i] = "Voice2Sync";			break;
+			case kVoice2FilterOn :		paramList[i] = "Voice2FilterOn";		break;
+			case kVoice2EnvAttack :		paramList[i] = "Voice2EnvAttack";		break;
+			case kVoice2EnvDecay :		paramList[i] = "Voice2EnvDecay";		break;
+			case kVoice2EnvSustain :	paramList[i] = "Voice2EnvSustain";		break;
+			case kVoice2EnvRelease :	paramList[i] = "Voice2EnvRelease";		break;
+
+			case kFilterCutoff :		paramList[i] = "FilterCutoff";			break;
+			case kFilterResonance :		paramList[i] = "FilterResonance";		break;
+			case kFilterHP :			paramList[i] = "FilterHP";				break;
+			case kFilterBP :			paramList[i] = "FilterBP";				break;
+			case kFilterLP :			paramList[i] = "FilterLP";				break;
+
+			case kLFO1Type :			paramList[i] = "LFO1Type";				break;
+			case kLFO1Rate :			paramList[i] = "LFO1Rate";				break;
+			case kLFO1Depth :			paramList[i] = "LFO1Depth";				break;
+
+			case kRoutingSource0 :		paramList[i] = "RoutingSource0";		break;
+			case kRoutingSource1 :		paramList[i] = "RoutingSource1";		break;
+			case kRoutingSource2 :		paramList[i] = "RoutingSource2";		break;
+			case kRoutingSource3 :		paramList[i] = "RoutingSource3";		break;
+
+			case kRoutingDestination0 :	paramList[i] = "RoutingDestination0";	break;
+			case kRoutingDestination1 :	paramList[i] = "RoutingDestination1";	break;
+			case kRoutingDestination2 :	paramList[i] = "RoutingDestination2";	break;
+			case kRoutingDestination3 :	paramList[i] = "RoutingDestination3";	break;
+
+			case kGlideRate :			paramList[i] = "GlideRate";				break;
+			case kGlideBend :			paramList[i] = "GlideBend";				break;
+			case kGlideType :			paramList[i] = "Glide";					break;
+				default: break;	}}
+
+	for (int i=0; i<knumWaveformTypes; ++i) {
 		switch (i) {
-			case kLFOMasterVolume :		LFOTargetList[i] = "LFOMasterVolume";	break;
-			case kLFOOsc1Tune :			LFOTargetList[i] = "LFOOsc1Tune";		break;
-			case kLFOOsc2Tune :			LFOTargetList[i] = "LFOOsc2Tune";		break;
-			case kLFOOsc3Tune :			LFOTargetList[i] = "LFOOsc3Tune";		break;
-			case kLFOOsc1PW :			LFOTargetList[i] = "LFOOsc1PW";			break;
-			case kLFOOsc2PW :			LFOTargetList[i] = "LFOOsc2PW";			break;
-			case kLFOOsc3PW :			LFOTargetList[i] = "LFOOsc3PW";			break;
-			case kLFOEnv1Att :			LFOTargetList[i] = "LFOEnv1Att";		break;
-			case kLFOEnv1Dec :			LFOTargetList[i] = "LFOEnv1Dec";		break;
-			case kLFOEnv1Sus :			LFOTargetList[i] = "LFOEnv1Sus";		break;
-			case kLFOEnv1Rel :			LFOTargetList[i] = "LFOEnv1Rel";		break;
-			case kLFOEnv2Att :			LFOTargetList[i] = "LFOEnv2Att";		break;
-			case kLFOEnv2Dec :			LFOTargetList[i] = "LFOEnv2Dec";		break;
-			case kLFOEnv2Sus :			LFOTargetList[i] = "LFOEnv2Sus";		break;
-			case kLFOEnv2Rel :			LFOTargetList[i] = "LFOEnv2Rel";		break;
-			case kLFOEnv3Att :			LFOTargetList[i] = "LFOEnv3Att";		break;
-			case kLFOEnv3Dec :			LFOTargetList[i] = "LFOEnv3Dec";		break;
-			case kLFOEnv3Sus :			LFOTargetList[i] = "LFOEnv3Sus";		break;
-			case kLFOEnv3Rel :			LFOTargetList[i] = "LFOEnv3Rel";		break;
-			case kLFOFilterCutoff :		LFOTargetList[i] = "LFOFilterCutoff";	break;
-			case kLFOFilterRes :		LFOTargetList[i] = "LFOFilterRes";		break;
-		}
-	}
+			case kWaveformNoise :			waveformList[i] = "Noise";				break;
+			case kWaveformPulse :			waveformList[i] = "Pulse";				break;
+			case kWaveformTriangle :		waveformList[i] = "Triangle";			break;
+			case kWaveformSaw :				waveformList[i] = "Saw";				break;
+			case kWaveformPulseTriangle :	waveformList[i] = "PulseTriangle";		break;
+			case kWaveformPulseSaw :		waveformList[i] = "PulseSaw";			break;
+			case kWaveformPulseTriangleSaw :waveformList[i] = "PulseTriangleSaw";	break;
+			case kWaveformTriangleSaw :		waveformList[i] = "TriangleSaw";		break;
+				default: break;	}}
+
+	for (int i=0; i<knumRoutingSources; ++i) {
+		switch (i) {
+			case kSourceVelocity :			routingSourceList[i] = "Velocity";	break;
+			case kSourceNotePitch :			routingSourceList[i] = "NotePitch";	break;
+			case kSourceSIDVoice3 :			routingSourceList[i] = "SIDVoice3";	break;
+			case kSourceSIDEnv3 :			routingSourceList[i] = "SIDEnv3";	break;
+			case kSourceLFO1 :				routingSourceList[i] = "LFO1";		break;
+				default: break;	}}
+
+	for (int i=0; i<knumRoutingDestinations; ++i) {
+		switch (i) {
+			case kDestMasterVolume :	routingDestinationList[i] = "MasterVolume";	break;
+			case kDestMasterTune :		routingDestinationList[i] = "MasterTune";	break;
+			case kDestVoice0Tune :		routingDestinationList[i] = "Voice0Tune";	break;
+			case kDestVoice1Tune :		routingDestinationList[i] = "Voice1Tune";	break;
+			case kDestVoice2Tune :		routingDestinationList[i] = "Voice2Tune";	break;
+			case kDestVoice0PW :		routingDestinationList[i] = "Voice0PW";		break;
+			case kDestVoice1PW :		routingDestinationList[i] = "Voice1PW";		break;
+			case kDestVoice2PW :		routingDestinationList[i] = "Voice2PW";		break;
+			case kDestEnv0Att :			routingDestinationList[i] = "Env0Att";		break;
+			case kDestEnv0Dec :			routingDestinationList[i] = "Env0Dec";		break;
+			case kDestEnv0Sus :			routingDestinationList[i] = "Env0Sus";		break;
+			case kDestEnv0Rel :			routingDestinationList[i] = "Env0Rel";		break;
+			case kDestEnv1Att :			routingDestinationList[i] = "Env1Att";		break;
+			case kDestEnv1Dec :			routingDestinationList[i] = "Env1Dec";		break;
+			case kDestEnv1Sus :			routingDestinationList[i] = "Env1Sus";		break;
+			case kDestEnv1Rel :			routingDestinationList[i] = "Env1Rel";		break;
+			case kDestEnv2Att :			routingDestinationList[i] = "Env2Att";		break;
+			case kDestEnv2Dec :			routingDestinationList[i] = "Env2Dec";		break;
+			case kDestEnv2Sus :			routingDestinationList[i] = "Env2Sus";		break;
+			case kDestEnv2Rel :			routingDestinationList[i] = "Env2Rel";		break;
+			case kDestFilterCutoff :	routingDestinationList[i] = "FilterCutoff";	break;
+			case kDestFilterRes :		routingDestinationList[i] = "FilterRes";	break;
+			case kDestLFO1Rate :		routingDestinationList[i] = "LFO1Rate";		break;
+			case kDestLFO1Depth :		routingDestinationList[i] = "LFO1Depth";	break;
+				default: break;	}}
 
 	for (int i=0; i<knumGlideTypes; ++i) {
 		switch (i) {
@@ -126,8 +139,13 @@ residlerParameterFormat::residlerParameterFormat ()
 			case kMono :				glideList[i] = "Mono";				break;
 			case kMonoLegato :			glideList[i] = "MonoLegato";		break;
 			case kMonoGlide :			glideList[i] = "MonoGlide";			break;
-		}
-	}
+				default: break;	}}
+
+	for (int i=0; i<kOnOffType; ++i) {
+		switch (i) {
+			case kOff :			onOffList[i] = "Off";	break;
+			case kOn :			onOffList[i] = "On";	break;
+				default: break;	}}
 }
 
 //garbage "preset" values for testing, change if you like. will be removed in the future.

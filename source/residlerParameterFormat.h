@@ -17,109 +17,125 @@ public:
 	enum paramIds {
 		kMasterVolume = 0,
 		kMasterTune,
-		//osc1
-		kOsc1Tune,
-		kOsc1Waveform,//<----------list type
-		kOsc1PW,
-		kOsc1RingMod,
-		kOsc1Sync,
-		kOsc1Filter,
-		//env1
-		kEnv1Att,
-		kEnv1Dec,
-		kEnv1Sus,
-		kEnv1Rel,
-		//osc2
-		kOsc2Tune,
-		kOsc2Waveform,//<----------list type
-		kOsc2PW,
-		kOsc2RingMod,
-		kOsc2Sync,
-		kOsc2Filter,
-		//env2
-		kEnv2Att,
-		kEnv2Dec,
-		kEnv2Sus,
-		kEnv2Rel,
-		//osc3
-		kOsc3Tune,
-		kOsc3Waveform,//<----------list type
-		kOsc3PW,
-		kOsc3RingMod,
-		kOsc3Sync,
-		kOsc3Filter,
-		//env3
-		kEnv3Att,
-		kEnv3Dec,
-		kEnv3Sus,
-		kEnv3Rel,
-		//filter
-		kFilterCutOff,
-		kFilterRes,
-		kFilterHP,
-		kFilterBP,
-		kFilterLP,
-		//lfo1
+		kMaxPolyphony,
+
+		kVoice0On, //kOnOffType
+		kVoice0Tune,
+		kVoice0PW,
+		kVoice0Waveform, //WaveformTypes list
+		kVoice0RingMod, //kOnOffType
+		kVoice0Sync, //kOnOffType
+		kVoice0FilterOn, //kOnOffType
+		kVoice0EnvAttack,
+		kVoice0EnvDecay,
+		kVoice0EnvSustain,
+		kVoice0EnvRelease,
+		
+		kVoice1On, //kOnOffType
+		kVoice1Tune,
+		kVoice1PW,
+		kVoice1Waveform, //WaveformTypes list
+		kVoice1RingMod, //kOnOffType
+		kVoice1Sync, //kOnOffType
+		kVoice1FilterOn, //kOnOffType
+		kVoice1EnvAttack,
+		kVoice1EnvDecay,
+		kVoice1EnvSustain,
+		kVoice1EnvRelease,
+
+		kVoice2On, //kOnOffType
+		kVoice2Tune,
+		kVoice2PW,
+		kVoice2Waveform, //waveformTypes list
+		kVoice2RingMod, //kOnOffType
+		kVoice2Sync, //kOnOffType
+		kVoice2FilterOn, //kOnOffType
+		kVoice2EnvAttack,
+		kVoice2EnvDecay,
+		kVoice2EnvSustain,
+		kVoice2EnvRelease,
+
+		kFilterCutoff,
+		kFilterResonance,
+		kFilterHP, //kOnOffType
+		kFilterBP, //kOnOffType
+		kFilterLP, //kOnOffType
+
 		kLFO1Type,
 		kLFO1Rate,
 		kLFO1Depth,
-		kLFO1Target, //<----------list type
-		//misc
+
+		kRoutingSource0, //routingSourceList
+		kRoutingSource1, //routingSourceList
+		kRoutingSource2, //routingSourceList
+		kRoutingSource3, //routingSourceList
+
+		kRoutingDestination0, //routingDestinationList
+		kRoutingDestination1, //routingDestinationList
+		kRoutingDestination2, //routingDestinationList
+		kRoutingDestination3, //routingDestinationList
+
 		kGlideRate,
 		kGlideBend,
-		kGlideType,
+		kGlideType, //GlideTypes list
 
 		//end of list
 		knumParameters
 	};
 
-	enum waveformTypes {
-		kOscNoise = 0,
-		kOscPulse,
-		kOscTri,
-		kOscSaw,
-		kOscNoisePulse,
-		kOscNoisePulseTri,
-		kOscNoisePulseTriSaw,
-		kOscNoisePulseSaw,
-		kOscNoiseTri,
-		kOscNoiseTriSaw,
-		kOscNoiseSaw,
-		kOscPulseTri,
-		kOscPulseSaw,
-		kOscPulseTriSaw,
-		kOscTriSaw,
-		kOscTriPulse,
+	enum WaveformTypes {
+		kWaveformNoise = 0,
+		kWaveformPulse,
+		kWaveformTriangle,
+		kWaveformSaw,
+		kWaveformPulseTriangle,
+		kWaveformPulseSaw,
+		kWaveformPulseTriangleSaw,
+		kWaveformTriangleSaw,
 
 		//end of list
-		knumOscTypes
+		knumWaveformTypes
 	};
 
-	enum LFOTargets {
-		kLFOMasterVolume = 0,
-		kLFOOsc1Tune,
-		kLFOOsc2Tune,
-		kLFOOsc3Tune,
-		kLFOOsc1PW,
-		kLFOOsc2PW,
-		kLFOOsc3PW,
-		kLFOEnv1Att,
-		kLFOEnv1Dec,
-		kLFOEnv1Sus,
-		kLFOEnv1Rel,
-		kLFOEnv2Att,
-		kLFOEnv2Dec,
-		kLFOEnv2Sus,
-		kLFOEnv2Rel,
-		kLFOEnv3Att,
-		kLFOEnv3Dec,
-		kLFOEnv3Sus,
-		kLFOEnv3Rel,
-		kLFOFilterCutoff,
-		kLFOFilterRes,
+	enum kRoutingSources {
+		kSourceVelocity,
+		kSourceNotePitch,
+		kSourceSIDVoice3,
+		kSourceSIDEnv3,
+		kSourceLFO1,
 
 		//end of list
-		knumLFOTargets
+		knumRoutingSources
+	};
+
+	enum kRoutingDestinations {
+		kDestMasterVolume,
+		kDestMasterTune,
+		kDestVoice0Tune,
+		kDestVoice1Tune,
+		kDestVoice2Tune,
+		kDestVoice0PW,
+		kDestVoice1PW,
+		kDestVoice2PW,
+		kDestEnv0Att,
+		kDestEnv0Dec,
+		kDestEnv0Sus,
+		kDestEnv0Rel,
+		kDestEnv1Att,
+		kDestEnv1Dec,
+		kDestEnv1Sus,
+		kDestEnv1Rel,
+		kDestEnv2Att,
+		kDestEnv2Dec,
+		kDestEnv2Sus,
+		kDestEnv2Rel,
+		kDestFilterCutoff,
+		kDestFilterRes,
+		kDestLFO1Rate,
+		kDestLFO1Depth,
+
+		//end of list
+		knumRoutingDestinations
 	};
 
 	enum GlideTypes {
@@ -134,6 +150,13 @@ public:
 		knumGlideTypes
 	};
 
+	enum OnOffType {
+		kOff = 0,
+		kOn,
+		//end of list
+		kOnOffType
+	};
+
 	//todo: get rid of these hard coded presets, file based system needed
 	enum factoryPresets {
 		knumPresets = 10//get rid of these
@@ -146,16 +169,21 @@ public:
 //-----------------------------------------------------------------------------
 public:
 	const vector<string>* paramNameList() const		{ return &paramList; }
-	const vector<string>* LFOTargetNameList() const	{ return &LFOTargetList; }
+	const vector<string>* routingSourceNameList() const	{ return &routingSourceList; }
+	const vector<string>* routingDestinationNameList() const	{ return &routingDestinationList; }
 	const vector<string>* glideNameList() const		{ return &glideList; }
 	const vector<string>* waveformNameList() const	{ return &waveformList; }
+	const vector<string>* onOffNameList() const	{ return &onOffList; }
 
 //-----------------------------------------------------------------------------
 private:
+	//void setParam(paramIds SIDparam, unsigned char value) {}
 	vector<string> paramList;
-	vector<string> LFOTargetList;
+	vector<string> routingSourceList;
+	vector<string> routingDestinationList;
 	vector<string> glideList;
 	vector<string> waveformList;
+	vector<string> onOffList;
 };
 
 }}} // namespaces

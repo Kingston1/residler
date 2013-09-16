@@ -70,10 +70,40 @@ void residlerController::populateParameters()
 		const wstring title (str.begin(), str.end());
 
 		switch (pid) {
-			case residlerParameterFormat::kOsc1Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
-			case residlerParameterFormat::kOsc2Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
-			case residlerParameterFormat::kOsc3Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
-			case residlerParameterFormat::kLFO1Target : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.LFOTargetNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice0On : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice1On : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice2On : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+
+			case residlerParameterFormat::kVoice0RingMod : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice1RingMod : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice2RingMod : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+
+			case residlerParameterFormat::kVoice0Sync : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice1Sync : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice2Sync : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+
+			case residlerParameterFormat::kVoice0FilterOn : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice1FilterOn : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice2FilterOn : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+
+			case residlerParameterFormat::kFilterHP : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kFilterBP : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+			case residlerParameterFormat::kFilterLP : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.onOffNameList(), pid ) ); break;
+
+			case residlerParameterFormat::kVoice0Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice1Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
+			case residlerParameterFormat::kVoice2Waveform : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.waveformNameList(), pid ) ); break;
+			
+			case residlerParameterFormat::kRoutingSource0 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingSourceNameList(), pid ) ); break;
+			case residlerParameterFormat::kRoutingSource1 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingSourceNameList(), pid ) ); break;
+			case residlerParameterFormat::kRoutingSource2 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingSourceNameList(), pid ) ); break;
+			case residlerParameterFormat::kRoutingSource3 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingSourceNameList(), pid ) ); break;
+
+			case residlerParameterFormat::kRoutingDestination0 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingDestinationNameList(), pid ) ); break;
+			case residlerParameterFormat::kRoutingDestination1 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingDestinationNameList(), pid ) ); break;
+			case residlerParameterFormat::kRoutingDestination2 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingDestinationNameList(), pid ) ); break;
+			case residlerParameterFormat::kRoutingDestination3 : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.routingDestinationNameList(), pid ) ); break;
+
 			case residlerParameterFormat::kGlideType : parameters.addParameter ( populateIndexParameter( title.c_str(), paramFormat.glideNameList(), pid ) ); break;
 				default :  parameters.addParameter (title.c_str(), USTRING(""), 0, 0, ParameterInfo::kCanAutomate, pid);
 		}
