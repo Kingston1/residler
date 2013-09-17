@@ -199,6 +199,9 @@
     <ClInclude Include="..\source\residfp\resample\ZeroOrderResampler.h">
       <Filter>Source Files\residfp\resamplers</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\sid_wrapper.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\residlerVST2Wrapper.cpp">
@@ -305,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="..\source\residfp\resample\SincResampler.cpp">
       <Filter>Source Files\residfp\resamplers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\sid_wrapper.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

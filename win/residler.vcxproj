@@ -270,6 +270,7 @@
     <ClInclude Include="..\..\pluginterfaces\vst\ivstunits.h" />
     <ClInclude Include="..\..\pluginterfaces\vst\vstpresetkeys.h" />
     <ClInclude Include="..\..\pluginterfaces\vst\vsttypes.h" />
+    <ClInclude Include="..\source\sid_wrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\public.sdk\source\vst\vst2wrapper\vst2wrapper.sdk.cpp" />
@@ -334,6 +335,7 @@
       <XMLDocumentationFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename)1.xdc</XMLDocumentationFileName>
     </ClCompile>
     <ClCompile Include="..\source\residlerVST2Wrapper.cpp" />
+    <ClCompile Include="..\source\sid_wrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="residler.def" />
