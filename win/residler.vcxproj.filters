@@ -199,6 +199,9 @@
     <ClInclude Include="..\source\residfp\resample\ZeroOrderResampler.h">
       <Filter>Source Files\residfp\resamplers</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\vstlogger.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\residlerVST2Wrapper.cpp">

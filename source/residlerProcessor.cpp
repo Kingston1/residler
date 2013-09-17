@@ -1,6 +1,8 @@
 #include "residlerProcessor.h"
 #include "residlerController.h"
 
+#include "vstlogger.h"
+
 namespace Steinberg {
 namespace Vst {
 namespace residler {
@@ -23,11 +25,16 @@ residlerProcessor::residlerProcessor ()
 	setControllerClass (residlerController::uid);
 	allocParameters (residlerParameterFormat::knumParameters);
 	resid = NULL;
+
+	vstlogger::log("INITIALIZED processor\n");
 }
 
 //-----------------------------------------------------------------------------
 residlerProcessor::~residlerProcessor ()
 {
+	vstlogger::log("goodbye processor.\n");
+	if (resid)
+		delete resid;
 }
 
 //-----------------------------------------------------------------------------
@@ -46,6 +53,8 @@ tresult PLUGIN_API residlerProcessor::initialize (FUnknown* context)
 				params[i] = newParams[i];
 		}
 
+		resid = NULL;
+
 		//it's ok to do big allocs etc. big initialisations here, also samplerate changes
 		recalculate ();
 	}
@@ -55,6 +64,7 @@ tresult PLUGIN_API residlerProcessor::initialize (FUnknown* context)
 //-----------------------------------------------------------------------------
 tresult PLUGIN_API residlerProcessor::terminate ()
 {
+
 	return BaseProcessor::terminate ();
 }
 
@@ -403,14 +413,21 @@ void residlerProcessor::noteOff(int16 note, int32 sampleOffset)
 	if (voiceState[1].voiceOn) resid->write(0x0B, prepareSIDControlReg(1) | 0x00 ); //voice1 gate off
 	if (voiceState[2].voiceOn) resid->write(0x12, prepareSIDControlReg(2) | 0x00 ); //voice2 gate off
 }
+
+
 //-----------------------------------------------------------------------------
 void residlerProcessor::recalculate ()
 {
-	//set up reSID etc. initialisation
-	resid = new reSIDfp::SID;
+	vstlogger::log("recalculate with rate %f\n", getSampleRate());
 
-	sidInfo.sampleRate = 44100.;
-	sidInfo.clockRate = 1000000.f;
+	if (!resid)
+	{
+		//set up reSID etc. initialisation
+		resid = new reSIDfp::SID;
+	}
+
+	sidInfo.sampleRate = getSampleRate();
+	sidInfo.clockRate = 985248.f;
 	double passband = 0.9 * (sidInfo.sampleRate / 2.0);
 	resid->setChipModel(reSIDfp::MOS6581);
 	resid->setSamplingParameters(sidInfo.clockRate, reSIDfp::RESAMPLE, sidInfo.sampleRate, passband);

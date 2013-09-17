@@ -51,8 +51,10 @@ tresult PLUGIN_API BaseProcessor::setupProcessing (ProcessSetup& setup)
 	if (bypassBuffer1)
 		free (bypassBuffer1);
 	bypassBuffer1 = (float*)malloc (setup.maxSamplesPerBlock * sizeof (float));
-	
-	return AudioEffect::setupProcessing (setup);
+
+	tresult tulos = AudioEffect::setupProcessing (setup);
+	recalculate();
+	return tulos;
 }
 
 //-----------------------------------------------------------------------------

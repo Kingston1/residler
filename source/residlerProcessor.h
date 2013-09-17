@@ -6,6 +6,7 @@
 
 #include "sid.h"
 
+
 namespace Steinberg {
 namespace Vst {
 namespace residler {

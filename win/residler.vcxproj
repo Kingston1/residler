@@ -107,7 +107,7 @@
       <AdditionalIncludeDirectories>../../..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <OutputFile>C:\Program Files\Common Files\VST3\$(ProjectName)$(TargetExt)</OutputFile>
+      <OutputFile>C:\Program Files (x86)\Common Files\VST3</OutputFile>
       <ModuleDefinitionFile>residler.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <ProgramDatabaseFile>$(OutDir)$(ProjectName).pdb</ProgramDatabaseFile>
@@ -166,7 +166,7 @@
       <AdditionalIncludeDirectories>../../..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
     <Link>
-      <OutputFile>C:\Program Files\Common Files\VST3\$(ProjectName)$(TargetExt)</OutputFile>
+      <OutputFile>c:\users\mankeli\vstplugins\residler.dll</OutputFile>
       <ModuleDefinitionFile>residler.def</ModuleDefinitionFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -264,6 +264,7 @@
     <ClInclude Include="..\..\pluginterfaces\vst\ivstunits.h" />
     <ClInclude Include="..\..\pluginterfaces\vst\vstpresetkeys.h" />
     <ClInclude Include="..\..\pluginterfaces\vst\vsttypes.h" />
+    <ClInclude Include="..\source\vstlogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\public.sdk\source\vst\vst2wrapper\vst2wrapper.sdk.cpp" />
