@@ -46,8 +46,9 @@ private:
 private:
 	residlerParameterFormat paramFormat;
 
-#define RES_BUF_SIZE (65536)
-	short residual_buf[RES_BUF_SIZE];
+	// this 65536 because 65536 is nice, big and round
+	static const int res_buf_size = 65536;
+	short residual_buf[res_buf_size];
 	int residual_buf_fill;
 
 	struct sidInfo

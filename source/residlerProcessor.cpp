@@ -1,7 +1,7 @@
 #include "residlerProcessor.h"
 #include "residlerController.h"
 
-#include "vstlogger.h"
+#include "base/source/fdebug.h"
 
 namespace Steinberg {
 namespace Vst {
@@ -26,13 +26,13 @@ residlerProcessor::residlerProcessor ()
 	allocParameters (residlerParameterFormat::knumParameters);
 	resid = NULL;
 
-	vstlogger::log("INITIALIZED processor\n");
+	DBPRT0("INITIALIZED processor\n");
 }
 
 //-----------------------------------------------------------------------------
 residlerProcessor::~residlerProcessor ()
 {
-	vstlogger::log("goodbye processor.\n");
+	DBPRT0("goodbye processor.\n");
 	if (resid)
 		delete resid;
 }
@@ -418,7 +418,7 @@ void residlerProcessor::noteOff(int16 note, int32 sampleOffset)
 //-----------------------------------------------------------------------------
 void residlerProcessor::recalculate ()
 {
-	vstlogger::log("recalculate with rate %f\n", getSampleRate());
+	DBPRT1("recalculate with rate %f\n", getSampleRate());
 
 	if (!resid)
 	{
