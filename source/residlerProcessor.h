@@ -39,8 +39,6 @@ private:
 private:
 	residlerParameterFormat paramFormat;
 
-	// this 65536 because 65536 is nice, big and round
-
 	int last_update_times[residlerParameterFormat::knumParameters];
 
 	sid_wrapper *sid;

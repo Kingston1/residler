@@ -149,6 +149,7 @@ void EnvelopeGenerator::writeCONTROL_REG(unsigned char control)
     {
         state = ATTACK;
         rate = adsrtable[attack];
+        lfsr = 0x7fff;
 
         // Switching to attack state unlocks the zero freeze and aborts any
         // pipelined envelope decrement.
@@ -162,6 +163,7 @@ void EnvelopeGenerator::writeCONTROL_REG(unsigned char control)
     {
         state = RELEASE;
         rate = adsrtable[release];
+        lfsr = 0x7fff;
     }
 
     gate = gate_next;
@@ -175,10 +177,12 @@ void EnvelopeGenerator::writeATTACK_DECAY(unsigned char attack_decay)
     if (state == ATTACK)
     {
         rate = adsrtable[attack];
+        lfsr = 0x7fff;
     }
     else if (state == DECAY_SUSTAIN)
     {
         rate = adsrtable[decay];
+        lfsr = 0x7fff;
     }
 }
 
@@ -190,6 +194,7 @@ void EnvelopeGenerator::writeSUSTAIN_RELEASE(unsigned char sustain_release)
     if (state == RELEASE)
     {
         rate = adsrtable[release];
+        lfsr = 0x7fff;
     }
 }
 

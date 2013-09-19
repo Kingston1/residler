@@ -270,6 +270,7 @@ void EnvelopeGenerator::clock()
             {
                 state = DECAY_SUSTAIN;
                 rate = adsrtable[decay];
+                lfsr = 0x7fff;
             }
 
             break;
