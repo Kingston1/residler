@@ -109,12 +109,12 @@ bool IndexedParameter::fromString (const TChar* string, ParamValue& valueNormali
 		return true;
 	}
 	return false;
-}
+} 
 
 //-----------------------------------------------------------------------------
-void IndexedParameter::setIndexString (int32 index, const String128 str)
+void IndexedParameter::setIndexString (int32 index, const UString128 str)
 {
-	memcpy (indexString[index], str, 128 * sizeof (TChar));
+	memcpy(indexString[index], str, sizeof(UString128));
 }
 
 //-----------------------------------------------------------------------------

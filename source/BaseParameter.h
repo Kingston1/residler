@@ -5,6 +5,7 @@
 #include "pluginterfaces/base/ustring.h"
 #include <list>
 #include <algorithm>
+#include <string>
 
 namespace Steinberg {
 namespace Vst {
@@ -45,7 +46,8 @@ public:
 	void toString (ParamValue valueNormalized, String128 string) const;
 	bool fromString (const TChar* string, ParamValue& valueNormalized) const;
 
-	void setIndexString (int32 index, const String128 str);
+	void setIndexString(int32 index, const UString128 str);
+
 protected:
 	~IndexedParameter ();
 	String128* indexString;

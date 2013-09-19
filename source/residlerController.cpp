@@ -119,9 +119,9 @@ IndexedParameter* residlerController::populateIndexParameter(const TChar * title
 	for (int i = 0; i<count; ++i) {
 
 		const string tempstr = list->at(i);
-		const wstring temptitle (tempstr.begin(), tempstr.end());
+		const UString128 tmp_ustring(tempstr.c_str());
 
-		indexParam->setIndexString (i, temptitle.c_str());
+		indexParam->setIndexString (i, tmp_ustring);
 		}
 
 	return indexParam;
