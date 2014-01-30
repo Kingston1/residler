@@ -14,20 +14,22 @@ VST3
 - win32
 - x64
 
-There will be OSX VST and AU support in the future.
-
+There might be OSX VST and AU support in the future.
 		
-Build Instructions for Microsoft Visual C++ 2010
+Build Instructions for Microsoft Visual C++ 2012
 ------------------------------------------------
 
-
-1. Install Windows 7.1 SDK in order to build x64 targets
-2. Download and extract latest Steinberg VST3 SDK (current version used in development: vstsdk352_25_09_2012_build_16)
-3. Clone residler git repository in the same directory with \public.sdk and \vstgui4
-4. Open \VST3 SDK\residler\win\residler.sln
-5. Visual C++ residler project Property Pages info
+1. Download and extract latest Steinberg VST3 SDK (current version used in development: vstsdk352_25_09_2012_build_16)
+2. Clone residler git repository in the same directory with \public.sdk and \vstgui4
+3. Open \VST3 SDK\residler\win\residler.sln
+4. Visual C++ residler project Property Pages info
 
 - Configuration Properties -> General -> Target Extension. You can set the output file to .dll or .vst3 here to select plugin format. Or you can just rename the file after building.
-- Configuration Properties -> General -> Platform Toolset. Make sure this is set to Windows7.1SDK.
+- Configuration Properties -> General -> Platform Toolset. Make sure this is set to Visual Studio 2012 (v110)
 - Configuration Properties -> Linker -> General -> Output File. Choose your plugin target folder here. For example C:\Program Files\Common Files\VST3 or C:\VstPlugins
 
+Additional Instructions for Microsoft Visual C++ 2010
+------------------------------------------------
+1. Install Windows 7.1 SDK in order to build x64 targets
+
+- Configuration Properties -> General -> Platform Toolset. Make sure this is set to Windows7.1SDK

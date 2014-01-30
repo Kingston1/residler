@@ -52,6 +52,10 @@ void sid_wrapper::note_on(int16 note, float velocity)
 	resid.write(0x0E, (voice2freq >> 0) & 0xFF);
 	resid.write(0x0F, (voice2freq >> 8) & 0xFF);
 
+	//todo: velocity to parameterScaled
+
+	//todo: pitch to parameterScaled
+
 	if (voiceState[0].voiceOn) resid.write(0x04, prepareSIDControlReg(0) | 0x01 ); //voice0 gate on
 	if (voiceState[1].voiceOn) resid.write(0x0B, prepareSIDControlReg(1) | 0x01 ); //voice1 gate on
 	if (voiceState[2].voiceOn) resid.write(0x12, prepareSIDControlReg(2) | 0x01 ); //voice2 gate on
@@ -62,6 +66,8 @@ void sid_wrapper::note_on(int16 note, float velocity)
 //-----------------------------------------------------------------------------
 void sid_wrapper::note_off(int16 note)
 {
+	//todo: noteon/off bool to parameterScaled
+
 	if (voiceState[0].voiceOn) resid.write(0x04, prepareSIDControlReg(0) | 0x00 ); //voice0 gate off
 	if (voiceState[1].voiceOn) resid.write(0x0B, prepareSIDControlReg(1) | 0x00 ); //voice1 gate off
 	if (voiceState[2].voiceOn) resid.write(0x12, prepareSIDControlReg(2) | 0x00 ); //voice2 gate off
@@ -338,7 +344,13 @@ int sid_wrapper::gen(int maxcycles, int maxframes, float *buf)
 	}
 
 	for (i = 0; i < this_frames; i++)
+	{
+		//todo: env3 and osc3 to parameterScaled
+		//unsigned char osc3 = resid.read(0x1b);
+		//unsigned char env3 = resid.read(0x1c);
+
 		buf[i] = (float)residual_buf[i] / 32768.f;
+	}
 
 	for (i = 0; i < (residual_buf_fill - this_frames); i++)
 	{
